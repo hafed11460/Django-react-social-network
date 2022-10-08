@@ -1,22 +1,23 @@
-import { Button, Card, Col, Form, Image, Row } from "react-bootstrap";
+import { Col, Image, Row } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
-import TopNavbar from "../components/navbar/TopNavbar"
-import VerticalNavbar from "../components/navbar/VerticalNavbar";
+
 
 import img from '../assets/img/ai.png'
 
 const AuthLayout = () => {
     return (
-        <div className="fluid-container p-0 m-0">
-
-            <Row className="">
-                <Col className="" xs={{ order: '2', span: 12 }} lg={{ order: '1', span: 3 }} xl={6}>
-                  <Image width='100%' height='100%' src={img}/>
+        <div className="container-fluid">
+            <Row className="min-vh-100 ">
+                <Col className="p-0 col-6 d-none d-lg-block position-relative">
+                    <Image width='100%' height='100%' src={img} />
                 </Col>
-                <Col xs={{ order: '1', span: 12 }} lg={{ order: '2', span: 6 }} xl={6} >
-                    <Outlet/>
+                <Col className="col-sm-10 col-md-6 px-sm-0 align-self-center mx-auto py-3" >
+                    <Row className="row justify-content-center g-0">
+                        <Col className="col-lg-9 col-xl-8 col-xxl-6">
+                            <Outlet />
+                        </Col>
+                    </Row>
                 </Col>
-
             </Row>
         </div>
     )

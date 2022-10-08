@@ -2,7 +2,7 @@ import { Container, Nav, Navbar } from "react-bootstrap"
 
 const TopNavbar = ()=>{
     return(
-        <Navbar bg='dark' variant="dark">
+        <Navbar bg='dark' variant="dark" className="fixed-top">
             <Container>
                 <Navbar.Brand>Network</Navbar.Brand>
                 <Nav className='me-auto'>

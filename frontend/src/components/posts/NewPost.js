@@ -24,7 +24,7 @@ const NewPost = () => {
                 <Row>
                     <Col>
                         <Button>
-                            <i class="bi bi-camera-reels"></i> Video
+                            <i className="bi bi-camera-reels"></i> Video
                         </Button>
                     </Col>
                 </Row>
