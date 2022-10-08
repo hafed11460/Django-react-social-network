@@ -1,0 +1,24 @@
+- account
+    - Login
+    - register
+
+- post
+    - create
+    - update
+    - delete
+    - coments
+        - like
+        - put comment
+        - delete
+
+- friends
+    - send request
+    - accespt request
+
+- chat
+    - private chat
+    - public chat
+
+- Notification
+    - read
+    - delete

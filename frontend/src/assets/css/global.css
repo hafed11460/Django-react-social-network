@@ -1,0 +1,16 @@
+html,body{
+    background-color: rgb(240, 240, 240);
+}
+
+input:hover{
+    box-shadow: none;
+    border-color:rgb(212, 212, 212);
+}
+input:focus{
+    box-shadow: none;
+    border-color:rgb(212, 212, 212);
+}
+
+.form-control:focus{
+    box-shadow: none;
+}
