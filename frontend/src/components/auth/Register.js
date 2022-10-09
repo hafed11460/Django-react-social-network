@@ -15,6 +15,7 @@ const Register = () => {
         lastname: 'Tabet',
         email: 'hafed11460@gmail.com',
         password: '123456',
+        confirm_password: '123456',
         remember: false
     });
 
@@ -92,8 +93,8 @@ const Register = () => {
                             <Form.Group as={Col} md={6} className="mb-2" >
                                 <Form.Label>Confirm Password</Form.Label>
                                 <Form.Control
-                                    value={formData.password}
-                                    name="password"
+                                    value={formData.confirm_password}
+                                    name="confirm_password"
                                     onChange={handleFieldChange}
                                     type="password"
                                 />

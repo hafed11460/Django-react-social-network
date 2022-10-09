@@ -6,6 +6,7 @@ import AuthLayout from './AuthLayout';
 import { GuestRoute } from './GuestRoute';
 import MainLayout from './MainLayout';
 import { PrivateRoute } from './PrivateRoute';
+import { ToastContainer } from 'react-toastify';
 
 const Layout = () => {
     return (
@@ -23,6 +24,17 @@ const Layout = () => {
                     </Route>
                 </Route>
             </Routes>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </>
     )
 }

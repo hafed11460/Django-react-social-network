@@ -10,11 +10,11 @@ const Post = ({ post }) => {
         <div className="mb-4">
             <Card>
                 <Card.Header className="bg-white">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-shrink-0">
+                    <div className="d-flex align-items-center">
+                        <div className="flex-shrink-0">
                             <img className="rounded-circle" src={user} width="45 " />
                         </div>
-                        <div class="flex-grow-1 ms-3">
+                        <div className="flex-grow-1 ms-3">
                             <h6> DZ DÉVELOPPEURS</h6>
                         </div>
                     </div>

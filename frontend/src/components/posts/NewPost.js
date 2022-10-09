@@ -8,11 +8,11 @@ const NewPost = () => {
     return (
         <Card className="mb-3">
             <Card.Body>
-                <div class="d-flex mt-2">
-                    <div class="flex-shrink-0">
+                <div className="d-flex mt-2">
+                    <div className="flex-shrink-0">
                         <img className="rounded-circle" src={user} width="35 " />
                     </div>
-                    <div class="flex-grow-1 ms-3">
+                    <div className="flex-grow-1 ms-3">
                         <Form bg={'white'}>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Control onClick={() => setModalShow(true)} type="text" />

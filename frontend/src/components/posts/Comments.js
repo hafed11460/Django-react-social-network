@@ -3,11 +3,11 @@ import user from 'assets/img/user.png'
 const Comments = () => {
     return (
         <>
-            <div class="d-flex mt-2 ">
-                <div class="flex-shrink-0">
+            <div className="d-flex mt-2 ">
+                <div className="flex-shrink-0">
                     <img className="rounded-circle" src={user} width="35 " />
                 </div>
-                <div class="flex-grow-1 ms-3 bg-light px-2 py-1 text-body rounded-3">
+                <div className="flex-grow-1 ms-3 bg-light px-2 py-1 text-body rounded-3">
                     <span className='text-dark'>Mahfoud</span>
                     <div>
                         <p>

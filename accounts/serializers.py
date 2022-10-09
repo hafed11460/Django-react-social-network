@@ -43,18 +43,25 @@ class UserSerializer(ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         max_length=68, min_length=6, write_only=True)
+    confirm_password = serializers.CharField(
+        max_length=68, min_length=6, write_only=True)
     default_error_messages = {
         'firstname': 'The firstname should only contain alphanumeric characters'}
 
     class Meta:
         model = User
-        fields = ['email', 'firstname', 'lastname', 'password']
+        fields = ['email', 'firstname', 'lastname', 'password','confirm_password']
 
     def validate(self, attrs):
         email = attrs.get('email', '')
         firstname = attrs.get('firstname', '')
         lastname = attrs.get('lastname', '')
-
+        password = attrs.get('password', '')
+        confirm_password = attrs.get('confirm_password', '')
+        if confirm_password != password:
+            raise serializers.ValidationError(
+                {confirm_password:'Confirm password is not mutch'}
+            )
         if not firstname.isalnum():
             raise serializers.ValidationError(
                 self.default_error_messages)
