@@ -1,7 +1,46 @@
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { useRegisterUserMutation } from "features/auth/authApi";
+import { useEffect, useState } from "react";
+import { Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import { FaFacebookSquare, FaGooglePlusG } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const Register = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [registerUser, { data, isSuccess, isLoading, isError, error }] = useRegisterUserMutation()
+
+    const [formData, setFormData] = useState({
+        firstname: 'Mahfoud',
+        lastname: 'Tabet',
+        email: 'hafed11460@gmail.com',
+        password: '123456',
+        remember: false
+    });
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        registerUser(formData)
+        toast.success(`Logged in as ${formData.email}`, {
+            theme: 'colored'
+        });
+    };
+
+    const handleFieldChange = e => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    useEffect(() => {
+        if (isSuccess) {
+            if (data) {
+                // dispatch(setLoginUser(data))
+                navigate('/login/')
+            }
+        }
+    })
     return (
         <>
             <Card className="shadow  mb-5 bg-body rounded">
@@ -9,24 +48,55 @@ const Register = () => {
                     <h2>Register</h2>
                 </Card.Header>
                 <Card.Body className="px-4">
-                    <Form>
-                        <Form.Group className="mb-2">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="email"  />
-                        </Form.Group>
+                    <Form onSubmit={handleSubmit}>
+                        <Row>
+                            <Form.Group as={Col} md={6} className="mb-2" >
+                                <Form.Label>Firstname</Form.Label>
+                                <Form.Control
+                                    value={formData.firstname}
+                                    name="firstname"
+                                    onChange={handleFieldChange}
+                                    type="text"
+                                />
+                            </Form.Group>
+                            <Form.Group as={Col} md={6} className="mb-2" >
+                                <Form.Label>Lastname</Form.Label>
+                                <Form.Control
+                                    value={formData.lastname}
+                                    name="lastname"
+                                    onChange={handleFieldChange}
+                                    type="text"
+                                />
+                            </Form.Group>
+                        </Row>
                         <Form.Group className="mb-2" >
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email"  />
+                            <Form.Control
+                                value={formData.email}
+                                name="email"
+                                onChange={handleFieldChange}
+                                type="email"
+                            />
                         </Form.Group>
 
                         <Row>
                             <Form.Group as={Col} md={6} className="mb-2" >
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password"  />
+                                <Form.Control
+                                    value={formData.password}
+                                    name="password"
+                                    onChange={handleFieldChange}
+                                    type="password"
+                                />
                             </Form.Group>
                             <Form.Group as={Col} md={6} className="mb-2" >
                                 <Form.Label>Confirm Password</Form.Label>
-                                <Form.Control type="password"  />
+                                <Form.Control
+                                    value={formData.password}
+                                    name="password"
+                                    onChange={handleFieldChange}
+                                    type="password"
+                                />
                             </Form.Group>
                         </Row>
 
@@ -39,7 +109,20 @@ const Register = () => {
                             </Form.Group>
                         </Row>
 
-                        <Button className="d-block w-100 mt-3" variant="primary" type="submit">
+                        <Button
+                            className="d-block w-100 mt-3"
+                            variant="primary"
+                            type="submit"
+                            disabled={!formData.firstname  || !formData.lastname || !formData.email || !formData.password || isLoading}
+                            >
+                            {isLoading && <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                            }
                             Log in
                         </Button>
                         <div className="position-relative mt-4">

@@ -1,13 +1,14 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
-import TopNavbar from "../components/navbar/TopNavbar"
-import VerticalNavbar from "../components/navbar/VerticalNavbar";
+import TopNavbar from "components/navbar/top/TopNavbar";
+
+import VerticalNavbar from "components/navbar/vertical/VerticalNavbar";
 
 const MainLayout = () => {
     return (
         <div>
             <TopNavbar />
-            <Container fluid className="mt-5">
+            <Container  className="mt-5">
                 <Row className="py-3">
                     <Col className="min-vh-100 sticky-top"
                         xs={{ order: '2', span: 12 }}

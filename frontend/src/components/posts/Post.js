@@ -1,6 +1,6 @@
-import { Card, Col, Row } from "react-bootstrap";
-import user from '../../assets/img/user.png'
-import BreakLine from "../tools/BreakLine";
+import { Card} from "react-bootstrap";
+import user from 'assets/img/user.png'
+import BreakLine from "components/common/BreakLine";
 import Comments from "./Comments";
 import NewComments from "./NewComment";
 import { BsHandThumbsUp,BsHandThumbsUpFill, BsChatLeft, BsArrow90DegRight } from "react-icons/bs";

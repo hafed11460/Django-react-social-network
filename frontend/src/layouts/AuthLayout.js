@@ -2,7 +2,7 @@ import { Col, Image, Row } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
 
 
-import img from '../assets/img/ai.png'
+import img from 'assets/img/ai.png'
 
 const AuthLayout = () => {
     return (

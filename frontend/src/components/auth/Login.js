@@ -1,7 +1,47 @@
-import { Button, Card, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Button, Card, Form, Spinner } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import { FaFacebookSquare, FaGooglePlusG } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { useLoginUserMutation } from "features/auth/authApi";
+import { setLoginUser } from 'features/auth/authSlice';
+import { useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
+
+
 const Login = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [loginUser, { data, isSuccess, isLoading, isError, error }] = useLoginUserMutation()
+
+    const [formData, setFormData] = useState({
+        email: 'hafed11460@gmail.com',
+        password: '123456',
+        remember: false
+    });
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        loginUser(formData)
+        toast.success(`Logged in as ${formData.email}`, {
+            theme: 'colored'
+        });
+    };
+
+    const handleFieldChange = e => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    useEffect(() => {
+        if (isSuccess) {
+            if (data) {
+                dispatch(setLoginUser(data))
+                navigate('/')
+            }
+        }
+    })
     return (
         <>
             <Card className="shadow  mb-5 bg-body rounded">
@@ -9,15 +49,25 @@ const Login = () => {
                     <h2>Login</h2>
                 </Card.Header>
                 <Card.Body className="p-4">
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
+                            <Form.Control
+                                value={formData.email}
+                                name="email"
+                                onChange={handleFieldChange}
+                                type="email"
+                            />
                         </Form.Group>
 
                         <Form.Group className="mb-3" >
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control
+                                value={formData.password}
+                                name="password"
+                                onChange={handleFieldChange}
+                                type="password"
+                            />
                         </Form.Group>
 
                         <Form.Group className="mb-3 d-flex flex-row justify-content-between">
@@ -28,7 +78,20 @@ const Login = () => {
                             <Link to="/register"> New User? Create account </Link>
                         </Form.Group>
 
-                        <Button className="d-block w-100 mt-3" variant="primary" type="submit">
+                        <Button
+                            className="d-block w-100 mt-3"
+                            variant="primary"
+                            type="submit"
+                            disabled={!formData.email || !formData.password || isLoading}
+                            >
+                            {isLoading && <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                            }
                             Log in
                         </Button>
                         <div className="position-relative mt-4">

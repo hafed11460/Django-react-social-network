@@ -1,5 +1,5 @@
 import { Form } from 'react-bootstrap';
-import user from '../../assets/img/user.png'
+import user from 'assets/img/user.png'
 const NewComments = () => {
     return (
         <>

@@ -1,5 +1,6 @@
-import { Badge, ListGroup } from "react-bootstrap";
+import {  ListGroup } from "react-bootstrap";
 import { BsChatSquareText,BsBinoculars,BsGearFill } from "react-icons/bs";
+import UserVerticalNav from "components/profile/UserVerticalNav";
 const size = 25
 const items = [
     { name: 'Find friends', icon: <BsBinoculars size={size}/> },
@@ -7,10 +8,16 @@ const items = [
     { name: 'Watch', icon: <BsGearFill size={size}/>  },
 ]
 
-
 const VerticalNavbar = () => {
     return (
         <ListGroup className="rounded sticky-top ">
+            <ListGroup.Item
+
+                        as="li"
+                        className="d-flex justify-content-between align-items-start py-3"
+                    >
+                       <UserVerticalNav/>
+                    </ListGroup.Item>
             {
                 items.map((item, idx) => (
                     <ListGroup.Item

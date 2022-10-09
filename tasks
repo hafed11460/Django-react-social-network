@@ -1,0 +1,13 @@
+1- Athentication
+    - login & logout
+    - register
+
+1- Post
+    - create Post
+    - update Post
+    - delete Post
+
+3- Comments
+    - add comment
+    - edit comment
+    - delete comment

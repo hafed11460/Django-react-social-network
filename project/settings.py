@@ -14,7 +14,9 @@ SECRET_KEY = 'django-insecure-__yzzo@g2zd1kjr7&2(^ffo4%$$m&$#l7+2-kqf!q-h9e49ctk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -24,6 +26,8 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=20),
 }
 
+REST_USE_JWT = True
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -32,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    "corsheaders",
     'utils',
     'accounts',
     'post',
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -78,12 +84,12 @@ DATABASES = {
     }
 }
 
-# REST_FRAMEWORK = {
-#     'NON_FIELD_ERRORS_KEY':'error',
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     )
-# }
+REST_FRAMEWORK = {
+    'NON_FIELD_ERRORS_KEY':'error',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
