@@ -18,7 +18,7 @@ const ProfileDropdwon = ()=>{
             to="#!"
             className="p-0 px-2 nav-link"
         >
-           <Avatar/>
+           <Avatar size={35}/>
         </Dropdown.Toggle>
 
         <Dropdown.Menu className=" dropdown-menu-card  dropdown-menu-end mt-2">

@@ -1,19 +1,22 @@
-html,body{
+html,
+body {
     background-color: rgb(247, 246, 234);
 }
 
-input:hover{
+input:hover {
     box-shadow: none;
-    border-color:rgb(212, 212, 212);
-}
-input:focus{
-    box-shadow: none;
-    border-color:rgb(212, 212, 212);
+    border-color: rgb(212, 212, 212);
 }
 
-.form-control:focus{
+input:focus {
+    box-shadow: none;
+    border-color: rgb(212, 212, 212);
+}
+
+.form-control:focus {
     box-shadow: none;
 }
-.sticky-top{
-    top:60px !important;
-  }
+
+.sticky-top {
+    top: 60px !important;
+}

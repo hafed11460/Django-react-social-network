@@ -22,9 +22,6 @@ const Login = () => {
     const handleSubmit = e => {
         e.preventDefault();
         loginUser(formData)
-        toast.success(`Logged in as ${formData.email}`, {
-            theme: 'colored'
-        });
     };
 
     const handleFieldChange = e => {

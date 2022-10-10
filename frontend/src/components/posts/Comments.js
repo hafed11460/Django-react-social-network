@@ -1,11 +1,10 @@
-import { Form } from 'react-bootstrap';
-import user from 'assets/img/user.png'
+import Avatar from 'components/common/Avatar';
 const Comments = () => {
     return (
         <>
             <div className="d-flex mt-2 ">
                 <div className="flex-shrink-0">
-                    <img className="rounded-circle" src={user} width="35 " />
+                    <Avatar/>
                 </div>
                 <div className="flex-grow-1 ms-3 bg-light px-2 py-1 text-body rounded-3">
                     <span className='text-dark'>Mahfoud</span>

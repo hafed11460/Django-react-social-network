@@ -1,6 +1,8 @@
 
 /venv
 /frontend/node_modules
+/frontend/src/assets/img
+/frontend/src/data
 db.sqlite3
 .env
 .env

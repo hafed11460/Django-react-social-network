@@ -1,11 +1,12 @@
 import { Form } from 'react-bootstrap';
 import user from 'assets/img/user.png'
+import Avatar from 'components/common/Avatar';
 const NewComments = () => {
     return (
         <>
             <div className="d-flex mt-2">
                 <div className="flex-shrink-0">
-                    <img className="rounded-circle" src={user} width="35 " />
+                    <Avatar />
                 </div>
                 <div className="flex-grow-1 ms-3">
                     <Form>

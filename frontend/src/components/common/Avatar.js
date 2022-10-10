@@ -1,14 +1,12 @@
 import user from 'assets/img/user.png'
-const Avatar = ()=>{
+const Avatar = ({
+    src=user,
+    size=35,
+    rounded='circle',
+}) => {
     return (
-        <span className="bg-dark ">
-            <div className="user-menu d-flex">
-                <div className="user-img d-flex align-items-center">
-                    <div className="avatar avatar-md">
-                        <img width={35} src={user} className="rounded-circle" />
-                    </div>
-                </div>
-            </div>
+        <span>
+            <img width={size} height={size} src={src} className="rounded-circle" />
         </span>
     )
 }

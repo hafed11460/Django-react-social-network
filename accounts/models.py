@@ -13,18 +13,18 @@ from utils.models import WithTimestamp
 
 class UserManager(BaseUserManager):
 
-    def create_vendor(self, firstname, lastname, email, password=None):
-        if firstname is None:
-            raise TypeError('Users should have a firstname')
-        if lastname is None:
-            raise TypeError('Users should have a firstname')
-        if email is None:
-            raise TypeError('Users should have a Email')
+    # def create_vendor(self, firstname, lastname, email, password=None):
+    #     if firstname is None:
+    #         raise TypeError('Users should have a firstname')
+    #     if lastname is None:
+    #         raise TypeError('Users should have a firstname')
+    #     if email is None:
+    #         raise TypeError('Users should have a Email')
 
-        user = self.model(firstname=firstname,lastname=lastname, email=self.normalize_email(email))
-        user.set_password(password)
-        user.save()
-        return user
+    #     user = self.model(firstname=firstname,lastname=lastname, email=self.normalize_email(email))
+    #     user.set_password(password)
+    #     user.save()
+    #     return user
 
     def create_user(self, firstname, lastname, email, password=None):
         if firstname is None:
@@ -34,7 +34,11 @@ class UserManager(BaseUserManager):
         if email is None:
             raise TypeError('Users should have a Email')
 
-        user = self.model(firstname=firstname,lastname=lastname, email=self.normalize_email(email))
+        user = self.model(
+            firstname=firstname,
+            lastname=lastname,
+            email=self.normalize_email(email)
+        )
         user.set_password(password)
         user.save()
         return user

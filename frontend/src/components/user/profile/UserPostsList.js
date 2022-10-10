@@ -1,11 +1,11 @@
+import NewPost from 'components/posts/NewPost';
+import Post from 'components/posts/Post';
 import {posts} from 'data/posts/posts'
-import NewPost from './posts/NewPost';
-import Post from './posts/Post';
 
-const Home = ()=>{
+
+const UserPostsList = ()=>{
     return (
         <>
-            <NewPost/>
             {
                 posts.map((post,idx)=>(
                     <Post key={idx} post={post}/>
@@ -15,4 +15,4 @@ const Home = ()=>{
     )
 }
 
-export default Home;
+export default UserPostsList;

@@ -4,6 +4,7 @@ import BreakLine from "components/common/BreakLine";
 import Comments from "./Comments";
 import NewComments from "./NewComment";
 import { BsHandThumbsUp,BsHandThumbsUpFill, BsChatLeft, BsArrow90DegRight } from "react-icons/bs";
+import Avatar from "components/common/Avatar";
 const size = 20
 const Post = ({ post }) => {
     return (
@@ -12,7 +13,7 @@ const Post = ({ post }) => {
                 <Card.Header className="bg-white">
                     <div className="d-flex align-items-center">
                         <div className="flex-shrink-0">
-                            <img className="rounded-circle" src={user} width="45 " />
+                            <Avatar size={45}/>
                         </div>
                         <div className="flex-grow-1 ms-3">
                             <h6> DZ DÉVELOPPEURS</h6>

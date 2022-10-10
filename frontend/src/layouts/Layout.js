@@ -7,6 +7,9 @@ import { GuestRoute } from './GuestRoute';
 import MainLayout from './MainLayout';
 import { PrivateRoute } from './PrivateRoute';
 import { ToastContainer } from 'react-toastify';
+import ProfileLayout from './ProfileLayout';
+import UserPostsList from 'components/user/profile/UserPostsList';
+import UserHome from 'components/user/profile/UserHome';
 
 const Layout = () => {
     return (
@@ -21,6 +24,10 @@ const Layout = () => {
                 <Route element={<PrivateRoute />}>
                     <Route element={<MainLayout />}>
                         <Route path="/" element={<Home />} />
+                    </Route>
+                    <Route element={<ProfileLayout />}>
+                        <Route path="/user/" element={<UserHome />} />
+                        <Route path="/user/posts/" element={<UserPostsList />} />
                     </Route>
                 </Route>
             </Routes>

@@ -1,4 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap"
+import { Link } from "react-router-dom";
 import MessageDropdown from "./MessageDropdown";
 import NotificationDropdown from "./NotificationDropdown";
 import ProfileDropdwon from "./ProfileDropdown";
@@ -13,8 +14,7 @@ const TopNavbar = () => {
             <Container>
                 <Navbar.Brand>Network</Navbar.Brand>
                 <Nav className='me-auto'>
-                    <Nav.Link href="#home">Home </Nav.Link>
-                    <Nav.Link href="#friends"> Friends </Nav.Link>
+                    <Nav.Link to='/' as={Link} >Home </Nav.Link>
                 </Nav>
                 <Navbar.Collapse id="responsive-navbar-nav border">
                     <Nav className="ms-auto g-2">
