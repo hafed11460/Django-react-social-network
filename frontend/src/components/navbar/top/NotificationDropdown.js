@@ -4,7 +4,7 @@ import { BsBell } from 'react-icons/bs'
 import { Link } from "react-router-dom";
 import { rawNewNotifications,notifications } from "data/notification/notification";
 import createMarkup from "helpers/createMarkup";
-
+import { iconSize } from "value";
 export const NotificationItem = ({
     avatar,
     children,
@@ -32,7 +32,7 @@ const NotificationDropdown = ({ width = 300 }) => {
                 className="p-0 px-2 nav-link "
             >
                 <span className="position-relative">
-                    <BsBell size={25} />
+                    <BsBell size={iconSize} />
                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         9
                     </span>

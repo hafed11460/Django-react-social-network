@@ -4,7 +4,7 @@ from rest_framework.serializers import ModelSerializer
 
 # from store.api.serializers import StoreSerializer
 from rest_framework import serializers
-from .models import  User
+from .models import User, UserProfileImage
 from django.contrib import auth
 from rest_framework.exceptions import AuthenticationFailed
 # from rest_framework_simplejwt.tokens import RefreshToken, TokenError
@@ -18,27 +18,50 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
+
 class SetLangSerializer(serializers.Serializer):
-    lang = serializers.CharField(min_length=2,max_length=2)
+    lang = serializers.CharField(min_length=2, max_length=2)
+
     class Meta:
         fields = ['lang']
-
 
     def validate(self, attrs):
         lang = attrs.get('lang', '')
         return {
-            'lang':lang,
+            'lang': lang,
         }
 
+
+class ProfileImageSerializer(ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = UserProfileImage
+        fields = ['id', 'image']
+
+    def get_image(self, obj):
+        request = self.context.get('request')
+        image_url = obj.image.url
+        # return image_url
+        return request.build_absolute_uri(image_url)
 
 
 class UserSerializer(ModelSerializer):
     # store = StoreSerializer(many=False, read_only=True)
+    # profile = ProfileImageSerializer(many=False, read_only=True)
+    image = serializers.SerializerMethodField()
     class Meta:
-        model= User
-        fields= ['id','firstname','lastname']
+        model = User
+        fields = ['id', 'firstname', 'lastname',
+        #  'profile',
+         'image']
+        depth = 2
 
-
+    def get_image(self,obj):
+        request = self.context.get('request')
+        image_url = obj.profile.image.url
+        # return image_url
+        return request.build_absolute_uri(image_url)
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
@@ -79,23 +102,50 @@ class EmailVerificationSerializer(serializers.ModelSerializer):
 
 class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
-        max_length=255, min_length=3,write_only=True)
+        max_length=255, min_length=3, write_only=True)
     password = serializers.CharField(
         max_length=68, min_length=3, write_only=True)
     tokens = serializers.DictField(read_only=True)
     user = serializers.SerializerMethodField()
+    # profile = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = [ 'email', 'password','tokens','user' ]
+        read_only_fields = [
+            'tokens',
+            'email',
+            'user',
+            # 'profile'
+        ]
+        fields = [
+            'email',
+            'password',
+            'tokens',
+            'user',
+            # 'profile'
+        ]
+
+    def get_profile(self, obj):
+        user = User.objects.get(email=obj['email'])
+        serializer = ProfileImageSerializer(
+            user.profile, context={'request': self.context['request']})
+        return serializer.data
 
     def get_user(self, obj):
         user = User.objects.get(email=obj['email'])
-
+        # serializer = UserSerializer(
+        #     user, context={'request': self.context['request']})
+        # return serializer.data
+        request = self.context.get('request')
+        image_url = user.profile.image.url
+        # return image_url
+        image_url = request.build_absolute_uri(image_url)
         return {
+            'id':user.id,
             'firstname': user.firstname,
             'lastname': user.lastname,
             'email': user.email,
+            'image':image_url,
         }
 
     def validate(self, attrs):
@@ -104,32 +154,37 @@ class LoginSerializer(serializers.ModelSerializer):
         user = auth.authenticate(email=email, password=password)
 
         if not user:
-            raise AuthenticationFailed({'errors':'Invalid credentials, try again'})
+            raise AuthenticationFailed(
+                {'errors': 'Invalid credentials, try again'})
         if not user.is_active:
-            raise AuthenticationFailed({'errors':'Account disabled, contact admin'})
+            raise AuthenticationFailed(
+                {'errors': 'Account disabled, contact admin'})
         if not user.is_verified:
-            raise AuthenticationFailed({'errors':'Email is not verified'})
+            raise AuthenticationFailed({'errors': 'Email is not verified'})
 
+        # serializer = UserSerializer(user)
         return {
             'email': user.email,
             'tokens': user.tokens,
+            # 'user':serializer.data
         }
-
 
 
 class ResetPasswordEmailRequestSerializer(serializers.Serializer):
     email = serializers.EmailField(min_length=2)
+
     class Meta:
         fields = ['email']
 
 
 class SetNewPasswordSerializer(serializers.Serializer):
-    password = serializers.CharField(min_length=6,max_length=68,write_only=True)
-    token = serializers.CharField(min_length=1,write_only=True)
-    uidb64 = serializers.CharField(min_length=1,write_only=True)
+    password = serializers.CharField(
+        min_length=6, max_length=68, write_only=True)
+    token = serializers.CharField(min_length=1, write_only=True)
+    uidb64 = serializers.CharField(min_length=1, write_only=True)
 
     class Meta:
-        fields = ['password','token','uidb64']
+        fields = ['password', 'token', 'uidb64']
 
     def validate(self, attrs):
         try:
@@ -140,11 +195,11 @@ class SetNewPasswordSerializer(serializers.Serializer):
             id = force_str(urlsafe_base64_decode(uidb64))
             user = User.objects.get(id=id)
 
-            if not PasswordResetTokenGenerator().check_token(user,token):
-                raise AuthenticationFailed('The reset link is invalid',401)
+            if not PasswordResetTokenGenerator().check_token(user, token):
+                raise AuthenticationFailed('The reset link is invalid', 401)
 
             user.set_password(password)
             user.save()
             return user
         except Exception as e:
-            raise AuthenticationFailed('The reset link is invalid',401)
+            raise AuthenticationFailed('The reset link is invalid', 401)

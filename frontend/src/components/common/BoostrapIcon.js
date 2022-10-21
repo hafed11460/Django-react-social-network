@@ -1,6 +1,11 @@
-const BoostrapIcon = ()=>{
+
+const BoostrapIcon = ({
+    size=30,
+    children,
+})=>{
     return(
         <>
+            {children}
         </>
     )
 }

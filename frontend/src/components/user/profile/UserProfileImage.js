@@ -1,11 +1,11 @@
-const { default: Avatar } = require("components/common/Avatar")
+import UserAvatar from "components/common/UserAvatar";
 const { Card } = require("react-bootstrap")
 
 const UserProfileImage = ()=>{
     return(
         <Card className="mb-3">
             <Card.Body>
-                <Avatar size={200}/>
+                <UserAvatar size={200}/>
             </Card.Body>
         </Card>
     )

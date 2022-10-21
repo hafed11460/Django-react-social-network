@@ -1,19 +1,27 @@
-import { useCreatePostMutation } from "features/posts/postsApi";
+import { createPost } from "features/posts/postsSlice";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Modal, Row, Spinner } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const NewPostModel = (props) => {
-
-    const [createPost, { data, isSuccess, isLoading, isError, error }] = useCreatePostMutation()
-
+    const dispatch = useDispatch()
+    const {isLoading,isSuccess} = useSelector((state)=>state.posts)
     const [formData, setFormData] = useState({
         content: 'This the first Post '
     });
 
     const handleSubmit = async e => {
         e.preventDefault();
-        createPost(formData)
+        dispatch(createPost(formData))
+        props.onHide()
+            setFormData({
+                ...formData,
+                content: ''
+            });
+            toast.success(`Your Post Add Successfully!`, {
+                theme: 'colored'
+            });
     };
 
     const handleFieldChange = e => {
@@ -22,21 +30,18 @@ const NewPostModel = (props) => {
             [e.target.name]: e.target.value
         });
     };
-
-    useEffect(() => {
-        if (isSuccess) {
-            props.onHide()
-            setFormData({
-                ...formData,
-                content: ''
-            });
-
-            toast.success(`Your Post Add Successfully!`, {
-                theme: 'colored'
-            });
-
-        }
-    },[isSuccess])
+    // useEffect(() => {
+    //     if (isSuccess) {
+    //         props.onHide()
+    //         setFormData({
+    //             ...formData,
+    //             content: ''
+    //         });
+    //         toast.success(`Your Post Add Successfully!`, {
+    //             theme: 'colored'
+    //         });
+    //     }
+    // }, [isSuccess])
     return (
         <Modal
             {...props}
@@ -61,21 +66,21 @@ const NewPostModel = (props) => {
                         />
                     </Form.Group>
                     <Button
-                    className="d-block w-100 mt-3"
-                    variant="primary"
-                    type="submit"
-                    disabled={!formData.content  || isLoading}
-                >
-                    { isLoading && <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                    />
-                    }
-                    Post
-                </Button>
+                        className="d-block w-100 mt-3"
+                        variant="primary"
+                        type="submit"
+                        disabled={!formData.content || isLoading}
+                    >
+                        {isLoading && <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        />
+                        }
+                        Post
+                    </Button>
                 </Form>
             </Modal.Body>
             {/* <Modal.Footer className="w-100">

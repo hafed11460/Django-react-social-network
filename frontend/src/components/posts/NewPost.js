@@ -1,7 +1,12 @@
 import { useState } from "react";
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { Card, Form } from "react-bootstrap";
 import NewPostModel from "./NewPostModel";
-import user from 'assets/img/user.png'
+
+import BreakLine from "components/common/BreakLine";
+import {  BsCalendarPlus,BsCameraVideoFill, BsCardImage} from "react-icons/bs";
+import { iconSize } from "value";
+import UserAvatar from "components/common/UserAvatar";
+
 
 const NewPost = () => {
     const [modalShow, setModalShow] = useState(false);
@@ -10,7 +15,7 @@ const NewPost = () => {
             <Card.Body>
                 <div className="d-flex mt-2">
                     <div className="flex-shrink-0">
-                        <img className="rounded-circle" src={user} width="35 " />
+                       <UserAvatar size={40}/>
                     </div>
                     <div className="flex-grow-1 ms-3">
                         <Form bg={'white'}>
@@ -28,16 +33,13 @@ const NewPost = () => {
                 />
 
                 <NewPostModel />
+                <BreakLine/>
+                <div className="d-flex justify-content-around">
+                    <div> <BsCameraVideoFill className="text-danger" color="red" size={iconSize}/> Video</div>
+                    <div> <BsCardImage className="text-success" size={iconSize}/> Photo</div>
+                    <div> <BsCalendarPlus className="text-warning"  size={iconSize}/> Event</div>
+                </div>
             </Card.Body>
-            <Card.Footer>
-                <Row>
-                    <Col>
-                        <Button>
-                            <i className="bi bi-camera-reels"></i> Video
-                        </Button>
-                    </Col>
-                </Row>
-            </Card.Footer>
         </Card >
     )
 }

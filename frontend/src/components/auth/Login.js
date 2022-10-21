@@ -31,6 +31,9 @@ const Login = () => {
         });
     };
 
+    if(isError){
+        console.log(error)
+    }
     useEffect(() => {
         if (isSuccess) {
             if (data) {
@@ -47,6 +50,11 @@ const Login = () => {
                 </Card.Header>
                 <Card.Body className="p-4">
                     <Form onSubmit={handleSubmit}>
+                        {isError &&
+                            <Form.Group className="mb-1" controlId="formBasicEmail">
+                                <Form.Label className="text-danger">{error.data.errors}</Form.Label>
+                            </Form.Group>
+                        }
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
                             <Form.Control
@@ -80,7 +88,7 @@ const Login = () => {
                             variant="primary"
                             type="submit"
                             disabled={!formData.email || !formData.password || isLoading}
-                            >
+                        >
                             {isLoading && <Spinner
                                 as="span"
                                 animation="border"

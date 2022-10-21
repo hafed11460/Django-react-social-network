@@ -1,5 +1,5 @@
 # from accounts.forms import VendorRegistrationForm
-from accounts.models import User
+from accounts.models import Profile, User, UserProfileImage
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
@@ -18,7 +18,14 @@ class UserAdmin(UserAdmin):
             'fields': ('email', 'firstname','lastname', 'password1', 'password2','is_active',),
         }),
     )
+class UserProfileImageAdmin(admin.ModelAdmin):
+    list_display = ('id','image',  )
 
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user','bio')
 
 admin.site.register(User, UserAdmin)
+admin.site.register(UserProfileImage, UserProfileImageAdmin)
+admin.site.register(Profile, ProfileAdmin)
 # admin.site.register(AccountProfileImage)

@@ -6,7 +6,7 @@ const Avatar = ({
 }) => {
     return (
         <span>
-            <img width={size} height={size} src={src} className="rounded-circle" />
+            <img width={size} height={size} src={src} className="rounded-circle " />
         </span>
     )
 }

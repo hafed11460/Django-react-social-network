@@ -4,14 +4,14 @@ import UserVerticalNav from "components/profile/UserVerticalNav";
 import { Link } from "react-router-dom";
 const size = 25
 const items = [
-    {
-        name: 'Home',
-        to:'/user/',
-        icon: <BsHouseDoor size={size} />
-    },
+    // {
+    //     name: 'Home',
+    //     to:'/user/',
+    //     icon: <BsHouseDoor size={size} />
+    // },
     {
         name: 'Post',
-        to:'/user/posts/',
+        to:'/user/',
         icon: <BsListUl size={size} />
     },
     {

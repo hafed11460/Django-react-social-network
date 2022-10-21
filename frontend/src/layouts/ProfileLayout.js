@@ -4,6 +4,8 @@ import TopNavbar from "components/navbar/top/TopNavbar";
 
 import UserSidebar from "components/user/UserSidebar";
 import UserProfileImage from "components/user/profile/UserProfileImage";
+import ProfileCover from "components/user/profile/ProfileCover";
+import ProfileTabs from "components/user/profile/ProfileTabs";
 
 const ProfileLayout = () => {
     return (
@@ -24,7 +26,9 @@ const ProfileLayout = () => {
                         xs={{ order: '1', span: 12 }}
                         lg={{ order: '2', span: 6 }}
                         xl={9} >
-                        <div className="overflow-auto px-3">
+                        <ProfileCover/>
+                        <ProfileTabs/>
+                        <div className="overflow-auto ">
                             <Outlet />
                         </div>
                     </Col>

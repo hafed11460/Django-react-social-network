@@ -4,14 +4,13 @@ from django.urls import include, path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
-# from .router import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
     path('auth/',include('accounts.urls')),
-    path('posts/',include('post.urls')),
-    # path('api/',include(router.urls))
+    path('',include('project.router')),
+    # path('api-auth/', include('rest_fram ework.urls')),
+    # path('posts/',include('post.urls')),
 ]
 
 if settings.DEBUG:

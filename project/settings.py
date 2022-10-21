@@ -19,6 +19,8 @@ ALLOWED_HOSTS = ['*']
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+APPEND_SLASH = True
+
 AUTH_USER_MODEL = 'accounts.User'
 
 SIMPLE_JWT = {
@@ -36,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
     'rest_framework',
     "corsheaders",
     'utils',
@@ -72,6 +75,7 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = "project.asgi.application"
 WSGI_APPLICATION = 'project.wsgi.application'
 
 
@@ -89,7 +93,12 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY':'error',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    # 'DEFAULT_PERMISSION_CLASSES':(
+    #     'rest_framework.permissions.AllowAny',
+    #     # 'rest_framework.permissions.IsAuthenticated',
+    # )
+
 }
 
 # Password validation
@@ -110,6 +119,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -134,8 +151,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "media"),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
+
 TEMP = os.path.join(BASE_DIR, 'media_cdn/temp')
 BASE_DIR = 'http://127.0.0.1/'
 BASE_URL = "http://127.0.0.1:8000/"

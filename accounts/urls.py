@@ -14,9 +14,6 @@ urlpatterns = [
         name="reset-confirm"),
     path('reset-complete/', SetNewPasswordAPIView.as_view(),
         name="reset-complete"),
-
     path('user/', CurrentLoggedInUser.as_view({'get': 'retrieve'}), name="current_user"),
-
     path('users/', UserListAPIView.as_view(), name='users')
-
 ]

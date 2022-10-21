@@ -1,23 +1,24 @@
-import {  ListGroup } from "react-bootstrap";
-import { BsChatSquareText,BsBinoculars,BsGearFill } from "react-icons/bs";
+import { ListGroup } from "react-bootstrap";
+import { BsChatSquareText, BsBinoculars, BsGearFill, BsBookmarkFill, BsPeopleFill } from "react-icons/bs";
 import UserVerticalNav from "components/profile/UserVerticalNav";
-const size = 25
+import { iconSize } from "value";
 const items = [
-    { name: 'Find friends', icon: <BsBinoculars size={size}/> },
-    { name: 'Groups', icon: <BsChatSquareText size={size}/> },
-    { name: 'Watch', icon: <BsGearFill size={size}/>  },
+    { name: 'Find friends', icon: <BsBinoculars size={iconSize} /> },
+    { name: 'Groups', icon: <BsPeopleFill size={iconSize} /> },
+    { name: 'Groups', icon: <BsChatSquareText size={iconSize} /> },
+    { name: 'Saved', icon: <BsBookmarkFill size={iconSize} /> },
+    { name: 'Watch', icon: <BsGearFill size={iconSize} /> },
 ]
 
 const VerticalNavbar = () => {
     return (
         <ListGroup className="rounded sticky-top ">
             <ListGroup.Item
-
-                        as="li"
-                        className="d-flex justify-content-between align-items-start py-3"
-                    >
-                       <UserVerticalNav/>
-                    </ListGroup.Item>
+                as="li"
+                className="d-flex justify-content-between align-items-start py-3"
+            >
+                <UserVerticalNav />
+            </ListGroup.Item>
             {
                 items.map((item, idx) => (
                     <ListGroup.Item
