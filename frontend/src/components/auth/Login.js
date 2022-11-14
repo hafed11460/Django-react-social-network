@@ -31,9 +31,7 @@ const Login = () => {
         });
     };
 
-    if(isError){
-        console.log(error)
-    }
+
     useEffect(() => {
         if (isSuccess) {
             if (data) {
@@ -42,6 +40,9 @@ const Login = () => {
             }
         }
     })
+    if(isError){
+        return <h5> Page Not Found </h5>
+    }
     return (
         <>
             <Card className="shadow  mb-5 bg-body rounded">
@@ -57,12 +58,21 @@ const Login = () => {
                         }
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control
+                            <Form.Select
+                                value={formData.email}
+                                name="email"
+                                onChange={handleFieldChange}
+                            >
+                                <option value={'hafed11460@gmail.com'}>hafed11460@gmail.com</option>
+                                <option value={'walid@gmail.com'}>walid@gmail.com</option>
+                                <option value={'admin@gmail.com'}>admin@gmail.com</option>
+                            </Form.Select>
+                            {/* <Form.Control
                                 value={formData.email}
                                 name="email"
                                 onChange={handleFieldChange}
                                 type="email"
-                            />
+                            /> */}
                         </Form.Group>
 
                         <Form.Group className="mb-3" >

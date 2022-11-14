@@ -1,0 +1,57 @@
+version: '3.9'
+services:
+  redis:
+    restart: always
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    container_name: redis
+    networks:
+      - db-net
+  db:
+    restart: always
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    volumes:
+      - .:/django
+    ports:
+      - "8000:8000"
+    # image: app:django
+    container_name: backend_container
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db
+      - redis
+    networks:
+      - db-net
+
+  frontend:
+    restart: always
+    command : npm start
+    container_name: frontend_container
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    depends_on:
+      - backend
+    networks:
+      - db-net
+networks:
+  db-net:
+    driver: bridge

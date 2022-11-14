@@ -9,7 +9,7 @@ import { PrivateRoute } from './PrivateRoute';
 import { ToastContainer } from 'react-toastify';
 import ProfileLayout from './ProfileLayout';
 import UserPostsList from 'components/user/profile/UserPostsList';
-import UserHome from 'components/user/profile/UserHome';
+import Messaging from 'components/messaging/Messaging';
 
 const Layout = () => {
     return (
@@ -24,6 +24,7 @@ const Layout = () => {
                 <Route element={<PrivateRoute />}>
                     <Route element={<MainLayout />}>
                         <Route path="/" element={<Home />} />
+                        <Route path="/messaging/" element={<Messaging />} />
                     </Route>
                     <Route element={<ProfileLayout />}>
                         <Route path="/user/" element={<UserPostsList />} />

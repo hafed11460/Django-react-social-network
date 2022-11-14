@@ -1,6 +1,5 @@
 import { ListGroup } from "react-bootstrap";
 import { BsChatSquareText, BsBinoculars, BsGearFill,BsHouseDoor,BsListUl,BsCollectionPlay } from "react-icons/bs";
-import UserVerticalNav from "components/profile/UserVerticalNav";
 import { Link } from "react-router-dom";
 const size = 25
 const items = [
@@ -16,7 +15,7 @@ const items = [
     },
     {
         name: 'Messages',
-        to:'/user/messages/',
+        to:'/messaging/',
         icon: <BsChatSquareText size={size} />
     },
     {

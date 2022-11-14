@@ -4,12 +4,18 @@ import { Link, useNavigate } from "react-router-dom";
 import Avatar from "components/common/Avatar";
 import { logout } from "features/auth/authSlice";
 import UserAvatar from "components/common/UserAvatar";
+import { setInitialiseState } from "features/posts/postsSlice";
+import { useLogoutUserMutation } from "features/auth/authApi";
+import { useEffect } from "react";
 const ProfileDropdwon = () => {
     const { user } = useSelector((state) => state.auth)
+
+    const [LogoutUser ,{isSuccess}] = useLogoutUserMutation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const onLogout = async () => {
-        dispatch(await logout())
+        LogoutUser()
+        dispatch(logout())
         navigate('/login/')
     }
     return (
@@ -50,7 +56,7 @@ const ProfileDropdwon = () => {
                     <Dropdown.Item as={Link} to="/user/settings">
                         Settings
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={onLogout} as={Link} to="/authentication/card/logout">
+                    <Dropdown.Item onClick={onLogout} as={Link} to="#!">
                         Logout
                     </Dropdown.Item>
                 </div>

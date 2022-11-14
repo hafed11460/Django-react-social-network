@@ -1,0 +1,4 @@
+### build image
+docker build -t image_name .
+### Run terminal
+docker exec -it container_name bash

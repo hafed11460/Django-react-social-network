@@ -16,6 +16,10 @@ class PostDataService{
     deletePost(postId){
         return http.delete(`/posts/${postId}/`)
     }
+    updatePost(post){
+        console.log('post updata',post)
+        return http.put(`/posts/${post.get('id')}/`,post)
+    }
 
     //******** Comments ********/
     addComment(comment){
@@ -23,6 +27,9 @@ class PostDataService{
     }
     deleteComment(commentId){
         return http.delete(`/posts-comments/${commentId}/`)
+    }
+    updateComment(comment){
+        return http.put(`/posts-comments/${comment.id}/`,comment)
     }
 
     //******** Likes ********/

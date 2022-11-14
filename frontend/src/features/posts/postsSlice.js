@@ -8,6 +8,7 @@ export const getPosts = createAsyncThunk(
         const res = await postsServices.getPosts()
         return res.data;
     })
+
 export const getUserPosts = createAsyncThunk(
     'posts/',
     async () => {
@@ -25,10 +26,20 @@ export const createPost = createAsyncThunk(
 export const deletePost = createAsyncThunk(
     'posts/delete',
     async (postId) => {
-        const res = await postsServices.deletePost(postId)
+        await postsServices.deletePost(postId)
         return postId;
     })
 
+export const updatePost = createAsyncThunk(
+    'posts/update',
+    async (post) => {
+        const res = await postsServices.updatePost(post)
+        return res.data;
+    })
+
+/************************************************************************************************************
+ * Comments
+ */
 export const addComment = createAsyncThunk(
     'comments/add',
     async (comment) => {
@@ -39,33 +50,37 @@ export const addComment = createAsyncThunk(
 export const deleteComment = createAsyncThunk(
     'comments/delete',
     async (comment) => {
-        console.log('comment deleted', comment)
+        // console.log('comment deleted', comment)
         const res = await postsServices.deleteComment(comment.id)
         return { post_id: comment.post, comment_id: comment.id }
+    })
+
+
+export const updateComment = createAsyncThunk(
+    'comments/update',
+    async (comment) => {
+        const res = await postsServices.updateComment(comment)
+        return res.data;
     })
 
 
 const initialState = {
     posts: [],
     errors: null,
-    postID:null,
-    commentID:null,
+    postID: null,
+    commentID: null,
     isLoading: false,
-    isSuccess: false
+    isSuccess: false,
 }
 
 export const postsSlice = createSlice({
     name: 'posts',
     initialState,
     reducers: {
-        setLoginUser(state, { payload }) {
-            state.user = payload.user
-            localStorage.setItem('user', JSON.stringify(payload.user))
-            localStorage.setItem('access', JSON.stringify(payload.tokens.access))
-            localStorage.setItem('refresh', JSON.stringify(payload.tokens.refresh))
-
+        setInitialiseState(state) {
+            state.posts = []
         },
-        setcommentId(state,{payload}){
+        setcommentId(state, { payload }) {
             state.commentID = payload
         }
     },
@@ -93,13 +108,14 @@ export const postsSlice = createSlice({
             state.isLoading = false;
             state.errors = action.payload;
         },
-
+        /****** Create Post ******/
         [createPost.pending]: (state, action) => {
             state.isLoading = true;
         },
         [createPost.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.isSuccess = true
+            // state.posts.unshift(action.payload)
             state.posts.push(action.payload)
         },
         [createPost.rejected]: (state, action) => {
@@ -108,13 +124,14 @@ export const postsSlice = createSlice({
             state.errors = action.payload;
         },
 
-
+        //*****  Delete Post */
         [deletePost.pending]: (state, action) => {
             state.isLoading = true;
         },
         [deletePost.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.isSuccess = true
+            // state.posts = state.posts.filter(post => post.id !== action.payload)
             state.posts = state.posts.filter(post => post.id !== action.payload)
         },
         [deletePost.rejected]: (state, action) => {
@@ -122,16 +139,45 @@ export const postsSlice = createSlice({
             state.isSuccess = false
         },
 
+        /****** Update  Post ******/
+        [updatePost.pending]: (state, action) => {
+            state.isLoading = true;
+        },
+        [updatePost.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.isSuccess = true
+            state.posts.map(post => {
+                if (post.id === action.payload.id) {
+                   return  action.payload
+                }
+                return post;
+            });
+        },
+        [updatePost.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.isSuccess = false
+            state.errors = action.payload;
+        },
 
-        //*****  addComment  */
+
+
+
+        //*****  Add Comment  */
         [addComment.pending]: (state, action) => {
             state.isLoading = true;
+            state.postID = action.meta.arg.post
         },
         [addComment.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.isSuccess = true
-            const existingPost = state.posts.find((post) => post.id === action.payload.post)
-            existingPost.comments.push(action.payload)
+            state.postID = null;
+            state.posts.filter((post)=>{
+                if(post.id === action.payload.post){
+                    return post.comments.push(action.payload)
+                }
+                return post
+            })
+
         },
         [addComment.rejected]: (state, action) => {
             state.isLoading = false;
@@ -139,12 +185,14 @@ export const postsSlice = createSlice({
             state.errors = action.payload;
         },
 
+        //*****  Delete Comment  */
         [deleteComment.pending]: (state, action) => {
-            // state.isLoading = true;
+            state.isLoading = true;
+            state.commentID = action.meta.arg.id
         },
         [deleteComment.fulfilled]: (state, action) => {
-            // state.isLoading = false;
-            // state.isSuccess = true
+            state.isLoading = false;
+            state.commentID = null
             state.posts.filter((post) => {
                 if (post.id === action.payload.post_id) {
                     const comments = post.comments.filter((comment) => comment.id !== action.payload.comment_id)
@@ -159,12 +207,43 @@ export const postsSlice = createSlice({
             // state.isSuccess = false
             state.errors = action.payload;
         },
+
+
+        //*****  Update Comment  */
+        [updateComment.pending]: (state, action) => {
+            state.isLoading = true;
+            state.postID = action.meta.arg.post
+        },
+        [updateComment.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.isSuccess = true
+            state.postID = null;
+
+            state.posts.filter((post) => {
+                if (post.id === action.payload.post) {
+                    const comments = post.comments.filter((comment) => comment.id !== action.payload.id)
+                    comments.push(action.payload)
+                    post.comments = comments
+                    return post
+                }
+                return post
+            })
+            // find  the currnet post
+            // const existingPost = state.posts.find((post) => post.id === action.payload.post)
+            // // push new comment to the currnet post
+            // existingPost.comments.unshift(action.payload)
+        },
+        [updateComment.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.isSuccess = false
+            state.errors = action.payload;
+        },
     }
 })
 
 export const {
-    setLoginUser,
     setcommentId,
+    setInitialiseState,
 } = postsSlice.actions
 
 export default postsSlice.reducer

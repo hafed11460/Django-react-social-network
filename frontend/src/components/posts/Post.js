@@ -1,4 +1,4 @@
-import { Card, Dropdown } from "react-bootstrap";
+import { Card, Col, Dropdown } from "react-bootstrap";
 import BreakLine from "components/common/BreakLine";
 import NewComments from "./NewComment";
 import {
@@ -14,18 +14,20 @@ import { iconSize, iconSize_sm } from "value";
 import MDropdown from "components/common/MDropdown";
 import Comment from "./Comment";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import React, { Fragment, memo, useCallback, useState } from "react";
 import { addComment, deletePost } from "features/posts/postsSlice";
 import { toast } from "react-toastify";
 import { useAddLikeMutation } from "features/posts/likesApi";
+import EditPostModel from "./EditPostModel";
+import useAuth from "hooks/useAuth";
 
 
 const PostLike = ({ handlePostLike }) => {
     const [like, setLike] = useState(false)
-    const handleOnClick = ()=>{
+    const handleOnClick = useCallback(() => {
         handlePostLike()
-        setLike(preev =>!preev)
-    }
+        setLike(preev => !preev)
+    }, [])
     return (
         <div onClick={handleOnClick} role='button'>
             {
@@ -38,7 +40,7 @@ const PostLike = ({ handlePostLike }) => {
     )
 }
 
-const PostDropdownMenu = ({ postId }) => {
+const PostDropdownMenu = ({ postId, handleEditPost }) => {
     const dispatch = useDispatch()
     const handleDeletePost = async () => {
         dispatch(deletePost(postId))
@@ -52,11 +54,9 @@ const PostDropdownMenu = ({ postId }) => {
                 <Dropdown.Item>
                     <BsBookmark size={iconSize_sm} /> <span className="ms-2">Save</span>
                 </Dropdown.Item>
-
-                <Dropdown.Item>
+                <Dropdown.Item onClick={handleEditPost}>
                     <BsPencilSquare size={iconSize_sm} /> <span className="ms-2">Edit</span>
                 </Dropdown.Item>
-
                 <Dropdown.Item onClick={handleDeletePost}>
                     <BsTrash size={iconSize_sm} /> <span className="ms-2">Delete</span>
                 </Dropdown.Item>
@@ -66,37 +66,50 @@ const PostDropdownMenu = ({ postId }) => {
 }
 
 const Post = ({ post }) => {
-    console.log(' Component Post Render')
-    const { user } = useSelector((state) => state.auth)
+    const [editPost, setEditPost] = useState(false);
+    console.log(` Component Post Render ${post.id}`)
+    const { user } = useAuth()
     const [addLike] = useAddLikeMutation()
     const dispatch = useDispatch()
-    const { owner } = post
 
-    const handlePostLike = (like) => {
-        addLike(post.id)
+
+    const handleEditPost = () => {
+        setEditPost(!editPost)
     }
-    const handleAddComment = (comment) => {
+    const handlePostLike = useCallback(() => {
+        addLike(post.id)
+    }, [])
+
+    const handleAddComment = useCallback((comment) => {
         comment['post'] = post.id
         dispatch(addComment(comment))
-    }
+    }, [])
+
     return (
         <div className="mb-4">
+            <EditPostModel
+                post={post}
+                show={editPost}
+                onHide={() => setEditPost(false)}
+            />
             <Card>
                 <Card.Header className="bg-white">
                     <div className="d-flex justify-content-between">
 
                         <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
-                                <Avatar src={owner.image} size={45} />
+                                <Avatar src={post.owner.image} size={45} />
+                                <small>-- {post.id}</small>
                             </div>
                             <div className="flex-grow-1 ms-3">
-                                <h6> {owner.firstname}</h6>
+                                <h6> {post.owner.firstname}</h6>
+                                <small> {post.created_at.substr(11, 8)} </small>
                             </div>
                         </div>
                         {
-                            (owner.id == user.id) &&
+                            (post.owner.id == user.id) &&
                             <div>
-                                <PostDropdownMenu postId={post.id} />
+                                <PostDropdownMenu handleEditPost={handleEditPost} postId={post.id} />
                             </div>
                         }
                     </div>
@@ -107,6 +120,15 @@ const Post = ({ post }) => {
                         <Card.Text>
                             {post.content}
                         </Card.Text>
+                        <div className="rounded">
+                            {
+                                post.images.map((img) => (
+                                    <Col key={img.id}>
+                                        <img width="25%" className=" float-start" src={img.image} />
+                                    </Col>
+                                ))
+                            }
+                        </div>
                     </Card.Body>
                 }
                 {
@@ -133,4 +155,9 @@ const Post = ({ post }) => {
     )
 }
 
-export default Post;
+const customComparator = (prevProps, nextProps) => {
+    return nextProps.post === prevProps.post;
+};
+
+export default React.memo(Post, customComparator);
+// export default Post;

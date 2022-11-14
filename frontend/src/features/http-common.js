@@ -13,7 +13,8 @@ const headers = () => {
             headers:{
                 'Authorization':`Bearer ${token}`,
                 'Content-Type':'application/json',
-                'Accept':'application/json'
+                'Accept':'application/json',
+                'Content-Type': 'multipart/form-data',
             }
         }
     } else {

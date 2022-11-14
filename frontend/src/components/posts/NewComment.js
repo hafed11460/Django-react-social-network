@@ -9,7 +9,7 @@ const NewComments = ({post_id,handleAddComment}) => {
     const [formData,setFormData] = useState({
         content:"",
     })
-    const {isLoading} = useSelector((state) =>state.posts)
+    const {isLoading,postID} = useSelector((state) =>state.posts)
     const handleFieldChange = (e)=>{
         setFormData({
             ...formData,
@@ -46,7 +46,7 @@ const NewComments = ({post_id,handleAddComment}) => {
                     </div>
                 </div>
                 {
-                    isLoading &&
+                    (isLoading && (postID === post_id))&&
                     <Spinner animation="border" variant="primary" size="md" />
                 }
             </div>
