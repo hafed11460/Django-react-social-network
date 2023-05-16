@@ -38,7 +38,7 @@ class PostsViewSet(PermissionPolicyMixin, ModelViewSet):
     permission_classes_per_method = {
         # except for list and retrieve where both users with "write" or "read-only"
         # permissions can access the endpoints.
-        "list": [IsAuthenticated],
+        "list": [], #[IsAuthenticated],
         "retrieve": [IsAuthenticated],
         "update": [IsAuthenticated, IsOwner],
     }

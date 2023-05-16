@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useLoginUserMutation } from "features/auth/authApi";
 import { setLoginUser } from 'features/auth/authSlice';
 import { useDispatch } from "react-redux";
-import { toast } from 'react-toastify';
 
 
 const Login = () => {

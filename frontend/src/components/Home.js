@@ -36,7 +36,7 @@ const Home = () => {
                     <div className="overflow-auto px-3">
                         <NewPost />
                         {
-                            posts.map((post) => (
+                            Array.isArray(posts) && posts.map((post) => (
                                 <Post key={post.id} post={post} />
                             ))
                         }

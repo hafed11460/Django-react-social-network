@@ -20,6 +20,8 @@ import { toast } from "react-toastify";
 import { useAddLikeMutation } from "features/posts/likesApi";
 import EditPostModel from "./EditPostModel";
 import useAuth from "hooks/useAuth";
+import ImagePost from "./ImagePost";
+import ImageView from "./ImageView";
 
 
 const PostLike = ({ handlePostLike }) => {
@@ -66,6 +68,7 @@ const PostDropdownMenu = ({ postId, handleEditPost }) => {
 }
 
 const Post = ({ post }) => {
+    const [imageViewModal, setImageViewModal] = useState(false)
     const [editPost, setEditPost] = useState(false);
     console.log(` Component Post Render ${post.id}`)
     const { user } = useAuth()
@@ -92,14 +95,22 @@ const Post = ({ post }) => {
                 show={editPost}
                 onHide={() => setEditPost(false)}
             />
-            <Card>
+            {
+                //Images view modal
+                post.images.length  &&
+                    <ImageView
+                    show={imageViewModal}
+                    images={post.images}
+                    onHide={() => setImageViewModal(false)}
+                    />
+            }
+            <Card >
                 <Card.Header className="bg-white">
-                    <div className="d-flex justify-content-between">
-
+                    <div className="d-flex justify-content-between ">
                         <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
                                 <Avatar src={post.owner.image} size={45} />
-                                <small>-- {post.id}</small>
+                                {/* <small>-- {post.id}</small> */}
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 <h6> {post.owner.firstname}</h6>
@@ -116,15 +127,20 @@ const Post = ({ post }) => {
                 </Card.Header>
                 {
                     post.content &&
-                    <Card.Body>
+                    <Card.Body onClick={()=>setImageViewModal(true)}>
+
+
                         <Card.Text>
                             {post.content}
                         </Card.Text>
                         <div className="rounded">
                             {
-                                post.images.map((img) => (
-                                    <Col key={img.id}>
-                                        <img width="25%" className=" float-start" src={img.image} />
+                                post.images.map((img ,idx) => (
+                                    <Col key={img.id} className="">
+                                        {idx == 0 ?
+                                        <ImagePost img={img}/> :
+                                        <img width={100/(post.images.length-1)  +"%"} className=" float-start" src={img.image} />
+                                    }
                                     </Col>
                                 ))
                             }

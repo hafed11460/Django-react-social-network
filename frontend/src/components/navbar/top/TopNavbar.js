@@ -16,9 +16,9 @@ const TopNavbar = () => {
         onClose: () => {
             console.log('Reconnecting Websocket ')
             setSocketUrl(null)
-            setTimeout(function () {
-                setSocketUrl(`${WS_URL}/notifications/`)
-            }, 1000);
+            // setTimeout(function () {
+            //     setSocketUrl(`${WS_URL}/notifications/`)
+            // }, 1000);
         },
         onMessage: (e) => {
             const data = JSON.parse(e.data)

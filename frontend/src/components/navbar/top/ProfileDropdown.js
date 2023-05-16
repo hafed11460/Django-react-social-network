@@ -34,7 +34,7 @@ const ProfileDropdwon = () => {
                     </div>
                     <div className="user-name text-start ms-3">
                         <h6 className="mb-0 text-gray-600">{user.firstname}</h6>
-                        <p className="mb-0 text-sm text-gray-600">Admin</p>
+                        {/* <p className="mb-0 text-sm text-gray-600">Admin</p> */}
                     </div>
 
                 </div>

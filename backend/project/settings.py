@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
+    'drf_yasg',
     'rest_framework',
     "corsheaders",
     'frontend',
@@ -111,6 +112,16 @@ DATABASES = {
 #         'PORT': 5433,
 #     }
 # }
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+      }
+   }
+}
 
 REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'error',
