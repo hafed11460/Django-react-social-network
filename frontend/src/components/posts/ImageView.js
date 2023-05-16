@@ -22,7 +22,7 @@ const  ImageView = (props)=> {
         centered
     >
         <Modal.Header closeButton>
-            <Modal.Title>Image View</Modal.Title>
+            {/* <Modal.Title>Image View</Modal.Title> */}
         </Modal.Header>
         <Modal.Body>
             <Carousel>

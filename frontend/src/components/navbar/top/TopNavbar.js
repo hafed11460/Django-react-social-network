@@ -6,6 +6,15 @@ import ProfileDropdwon from "./ProfileDropdown";
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { WS_URL } from "features/baseUrl";
 import { useState } from "react";
+import { BsBagPlus, BsChatRightDotsFill, BsHouseDoorFill, BsPeople } from "react-icons/bs";
+import { iconSize } from "value";
+
+const itemslink = [
+    { name: 'Home','to':'/', icon: <BsHouseDoorFill size={iconSize} /> },
+    { name: 'My Network','to':'mynetwork', icon: <BsBagPlus size={iconSize} /> },
+    { name: 'Messaging','to':'messaging', icon: <BsChatRightDotsFill size={iconSize} /> },
+    { name: 'Notifications','to':'notifications', icon: <BsChatRightDotsFill size={iconSize} /> },
+]
 
 const TopNavbar = () => {
     const [socketUrl, setSocketUrl] = useState(`${WS_URL}/notifications/`);
@@ -39,16 +48,23 @@ const TopNavbar = () => {
             className="fixed-top "
         >
             <Container>
-                <Navbar.Brand>Network</Navbar.Brand>
-                <Nav className='me-auto'>
-                    <Nav.Link to='/' as={Link} >Home </Nav.Link>
-                </Nav>
-                <Nav className='me-auto'>
-                    <Nav.Link to='/messaging/' as={Link} >Messaging </Nav.Link>
-                </Nav>
-                <Nav className='me-auto'>
+                {/* <Navbar.Brand>Network</Navbar.Brand> */}
+                {itemslink && itemslink.map((item,idx)=>(
+                    <Nav className='me-auto p-0 ' key={idx}>
+                        <Nav.Link to={item.to} as={Link} className="d-flex flex-column me-4 p-0">
+                            <div className="d-block text-center" >
+                                {item.icon}
+                            </div>
+                            <small>
+                                {item.name}
+                            </small>
+                        </Nav.Link>
+                    </Nav>
+                ))}
+
+                {/* <Nav className='me-auto'>
                     <Nav.Link to='/' as={Link} >{connectionStatus} </Nav.Link>
-                </Nav>
+                </Nav> */}
                 <Navbar.Collapse id="responsive-navbar-nav border">
                     <Nav className="ms-auto g-2">
                         <div className="d-flex align-items-end">

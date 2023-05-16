@@ -65,6 +65,7 @@ const Login = () => {
                                 <option value={'hafed11460@gmail.com'}>hafed11460@gmail.com</option>
                                 <option value={'walid@gmail.com'}>walid@gmail.com</option>
                                 <option value={'admin@gmail.com'}>admin@gmail.com</option>
+                                <option value={'user@gmail.com'}>testUser</option>
                             </Form.Select>
                             {/* <Form.Control
                                 value={formData.email}
