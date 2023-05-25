@@ -35,13 +35,13 @@ const Login = () => {
         if (isSuccess) {
             if (data) {
                 dispatch(setLoginUser(data))
-                navigate('/')
+                // navigate('/')
             }
         }
     })
-    if(isError){
-        return <h5> Page Not Found </h5>
-    }
+    // if(isError){
+    //     return <h5> Page Not Found </h5>
+    // }
     return (
         <>
             <Card className="shadow  mb-5 bg-body rounded">
@@ -87,7 +87,7 @@ const Login = () => {
 
                         <Form.Group className="mb-3 d-flex flex-row justify-content-between">
                             <Form.Check type="checkbox" label="Check me out" />
-                            <Card.Link href="#">Forgot Password?</Card.Link>
+                            <Link to="/forgot-password">Forgot Password?</Link>
                         </Form.Group>
                         <Form.Group className="mb-3 d-flex flex-row-reverse justify-content-between">
                             <Link to="/register"> New User? Create account </Link>

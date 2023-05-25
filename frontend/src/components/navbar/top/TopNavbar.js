@@ -6,14 +6,14 @@ import ProfileDropdwon from "./ProfileDropdown";
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { WS_URL } from "features/baseUrl";
 import { useState } from "react";
-import { BsBagPlus, BsChatRightDotsFill, BsHouseDoorFill, BsPeople } from "react-icons/bs";
+import { BsBagPlus, BsBell, BsChatRightDotsFill, BsHouseDoorFill, BsPeople } from "react-icons/bs";
 import { iconSize } from "value";
 
 const itemslink = [
     { name: 'Home','to':'/', icon: <BsHouseDoorFill size={iconSize} /> },
     { name: 'My Network','to':'mynetwork', icon: <BsBagPlus size={iconSize} /> },
     { name: 'Messaging','to':'messaging', icon: <BsChatRightDotsFill size={iconSize} /> },
-    { name: 'Notifications','to':'notifications', icon: <BsChatRightDotsFill size={iconSize} /> },
+    { name: 'Notifications','to':'notifications', icon: <BsBell size={iconSize} /> },
 ]
 
 const TopNavbar = () => {

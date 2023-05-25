@@ -10,6 +10,9 @@ import { ToastContainer } from 'react-toastify';
 import ProfileLayout from './ProfileLayout';
 import UserPostsList from 'components/user/profile/UserPostsList';
 import Messaging from 'components/messaging/Messaging';
+import MyNetwork from 'components/mynetwork/MyNetwork';
+import Notifications from 'components/notifications/Notifications';
+import ForgotPassword from 'components/auth/ForgotPassword';
 
 const Layout = () => {
     return (
@@ -19,12 +22,15 @@ const Layout = () => {
                     <Route element={<AuthLayout />}>
                         <Route path="/login/" element={<Login />} />
                         <Route path="/register/" element={<Register />} />
+                        <Route path="/forgot-password/" element={<ForgotPassword />} />
                     </Route>
                 </Route>
                 <Route element={<PrivateRoute />}>
                     <Route element={<MainLayout />}>
                         <Route path="/" element={<Home />} />
                         <Route path="/messaging/" element={<Messaging />} />
+                        <Route path="/mynetwork/" element={<MyNetwork />} />
+                        <Route path="/notifications/" element={<Notifications />} />
                     </Route>
                     <Route element={<ProfileLayout />}>
                         <Route path="/user/" element={<UserPostsList />} />

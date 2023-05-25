@@ -1,32 +1,34 @@
 {
   "files": {
-    "main.css": "/static/css/main.7c1d10a8.css",
-    "main.js": "/static/js/main.9dc3186a.js",
+    "main.css": "/static/css/main.7fb89922.css",
+    "main.js": "/static/js/main.49d25abc.js",
+    "static/media/12.jpg": "/static/media/12.ec43020a805e8be5f532.jpg",
+    "static/media/5.jpg": "/static/media/5.3fdcffd48a030bc32c64.jpg",
     "static/media/bootstrap-icons.woff?": "/static/media/bootstrap-icons.e559bf06bc84fd9525e6.woff",
     "static/media/bootstrap-icons.woff2?": "/static/media/bootstrap-icons.ea98e12d2d58747f9fc5.woff2",
     "static/media/ai.png": "/static/media/ai.0e76a619689aaf87f1d8.png",
     "static/media/harvard.png": "/static/media/harvard.dd2c27a90e989a48ff00.png",
+    "static/media/3.jpg": "/static/media/3.b3477e97bffc3dc7e37d.jpg",
     "static/media/oxford.png": "/static/media/oxford.9cafa98d5e48fb50bdca.png",
+    "static/media/2.jpg": "/static/media/2.20b1aba341d608286e8d.jpg",
     "static/media/weather.jpg": "/static/media/weather.27c27b87042ebe27742b.jpg",
     "static/media/img2.jpg": "/static/media/img2.8aee1ff307b66ff9d332.jpg",
-    "static/media/2.jpg": "/static/media/2.20b1aba341d608286e8d.jpg",
     "static/media/img1.jpg": "/static/media/img1.9d898d82fe1ce72c0cad.jpg",
     "static/media/img4.jpg": "/static/media/img4.e2979e0cd55049b56969.jpg",
     "static/media/7.jpg": "/static/media/7.ad543a0e83599b4c9eca.jpg",
+    "static/media/6.jpg": "/static/media/6.73c7fce24bcc54d880c1.jpg",
     "static/media/4.jpg": "/static/media/4.482e0311a04c21d39072.jpg",
     "static/media/9.jpg": "/static/media/9.57c5c6012dba7d53ee2e.jpg",
     "static/media/8.jpg": "/static/media/8.f10cab45621e51a3042a.jpg",
     "static/media/10.jpg": "/static/media/10.8575d5a933f12d1a0eb8.jpg",
     "static/media/1.jpg": "/static/media/1.f7d5569cf13ddcf4df82.jpg",
     "static/media/img3.jpg": "/static/media/img3.340a0ad32c2c38fb1590.jpg",
-    "static/media/5.jpg": "/static/media/5.3fdcffd48a030bc32c64.jpg",
-    "static/media/3.jpg": "/static/media/3.b3477e97bffc3dc7e37d.jpg",
     "index.html": "/index.html",
-    "main.7c1d10a8.css.map": "/static/css/main.7c1d10a8.css.map",
-    "main.9dc3186a.js.map": "/static/js/main.9dc3186a.js.map"
+    "main.7fb89922.css.map": "/static/css/main.7fb89922.css.map",
+    "main.49d25abc.js.map": "/static/js/main.49d25abc.js.map"
   },
   "entrypoints": [
-    "static/css/main.7c1d10a8.css",
-    "static/js/main.9dc3186a.js"
+    "static/css/main.7fb89922.css",
+    "static/js/main.49d25abc.js"
   ]
 }

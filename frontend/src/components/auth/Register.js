@@ -124,7 +124,7 @@ const Register = () => {
                                 aria-hidden="true"
                             />
                             }
-                            Log in
+                            Register
                         </Button>
                         <div className="position-relative mt-4">
                             <hr className="bg-300" />

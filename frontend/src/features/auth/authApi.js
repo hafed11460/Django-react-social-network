@@ -27,6 +27,15 @@ export const authApi = createApi({
                 };
             },
         }),
+        emailRestPassword:builder.mutation({
+            query:(body)=>{
+                return{
+                    url:`${auth_root}/email-reset-password/`,
+                    method:'POST',
+                    data:body,
+                };
+            },
+        }),
         LogoutUser:builder.mutation({
             query:()=>{
                 return{
@@ -42,5 +51,6 @@ export const authApi = createApi({
 export const {
     useLoginUserMutation,
     useRegisterUserMutation,
+    useEmailRestPasswordMutation,
     useLogoutUserMutation
 } = authApi

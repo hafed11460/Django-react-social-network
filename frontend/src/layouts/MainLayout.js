@@ -9,7 +9,9 @@ const MainLayout = () => {
         <div>
             <TopNavbar />
             <Container className="mt-5">
-                <Outlet />
+                <div className="py-3">
+                    <Outlet />
+                </div>
             </Container>
         </div>
     )
